@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myrepo-deployment
+  namespace: default
+spec:
+  replicas: 1  # You can adjust the number of replicas if needed
+  selector:
+    matchLabels:
+      app: myrepo
+  template:
+    metadata:
+      labels:
+        app: myrepo
+    spec:
+      containers:
+        - name: myrepo-container
+          image: trishanetrx/myrepo:latest  # Use your Docker image here
+          ports:
+            - containerPort: 80  # Expose port 80, adjust if needed
+
