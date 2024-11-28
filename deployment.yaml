@@ -24,10 +24,13 @@ spec:
             - name: WORDPRESS_DATABASE_NAME
               value: "wordpress"
             - name: WORDPRESS_DATABASE_USER
-              value: "user"
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-secret
+                  key: mariadb-user
             - name: WORDPRESS_DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: mariadb-secret
-                  key: password
+                  key: mariadb-password
 
