@@ -20,16 +20,16 @@ spec:
         - containerPort: 80
         env:
         - name: WORDPRESS_DATABASE_HOST
-          value: "my-wordpress-mariadb-headless"
+          value: "my-wordpress-mariadb" # Or "my-wordpress-mariadb-headless" if using headless service
         - name: WORDPRESS_DATABASE_NAME
           value: "wordpress"
         - name: WORDPRESS_DATABASE_USER
           valueFrom:
             secretKeyRef:
               name: mariadb-secret
-              key: mariadb-user
+              key: mariadb-user # Should be 'user' based on your secret
         - name: WORDPRESS_DATABASE_PASSWORD
           valueFrom:
             secretKeyRef:
               name: mariadb-secret
-              key: mariadb-password
+              key: mariadb-password # Should match the password value in your secret
