@@ -17,19 +17,28 @@ spec:
       - name: wordpress
         image: bitnami/wordpress:latest
         ports:
-        - containerPort: 80
+        - containerPort: 8080 # Non-privileged port
         env:
         - name: WORDPRESS_DATABASE_HOST
-          value: "my-wordpress-mariadb" # Or "my-wordpress-mariadb-headless" if using headless service
+          value: "my-wordpress-mariadb" # MariaDB service name
         - name: WORDPRESS_DATABASE_NAME
-          value: "wordpress"
+          value: "bitnami_wordpress" # Default WordPress database
         - name: WORDPRESS_DATABASE_USER
           valueFrom:
             secretKeyRef:
-              name: mariadb-secret
-              key: mariadb-user # Should be 'user' based on your secret
+              name: my-wordpress-mariadb # Secret name containing DB user
+              key: mariadb-user
         - name: WORDPRESS_DATABASE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mariadb-secret
-              key: mariadb-password # Should match the password value in your secret
+              name: my-wordpress-mariadb # Secret name containing DB password
+              key: mariadb-password
+        - name: WORDPRESS_USERNAME
+          value: "user" # WordPress admin username
+        - name: WORDPRESS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: my-wordpress # Secret containing WordPress password
+              key: wordpress-password
+        - name: WORDPRESS_EMAIL
+          value: "user@example.com" # WordPress admin email
