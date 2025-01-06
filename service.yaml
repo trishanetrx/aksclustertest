@@ -3,13 +3,12 @@ kind: Service
 metadata:
   name: wordpress-service
   namespace: wordpress
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-internal: "true" # Add this line to make it internal
 spec:
   selector:
     app: wordpress
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
+    - protocol: TCP
+      port: 80
+      targetPort: 80
   type: LoadBalancer
+
